@@ -170,11 +170,6 @@
 								"internalType": "uint256",
 								"name": "voteCount",
 								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
 							}
 						],
 						"internalType": "struct Voting.Proposal[]",
@@ -236,11 +231,6 @@
 								"internalType": "uint256",
 								"name": "voteCount",
 								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
 							}
 						],
 						"internalType": "struct Voting.Proposal",
@@ -262,13 +252,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "publishResult",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -295,6 +278,13 @@
 			{
 				"inputs": [],
 				"name": "startVote",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "talliedVote",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -397,9 +387,6 @@
 				"getWinner()": {
 					"notice": "Get le winner "
 				},
-				"publishResult()": {
-					"notice": "Permet de rendre public les votes"
-				},
 				"resetSession()": {
 					"notice": "Reset de la session "
 				},
@@ -408,6 +395,9 @@
 				},
 				"startVote()": {
 					"notice": "Permet de start les votes"
+				},
+				"talliedVote()": {
+					"notice": "Permet de rendre public les votes"
 				},
 				"vote(uint256)": {
 					"notice": "Fonction permettant de voter pour une proposition et ajouter un vote à la proposition "
@@ -449,11 +439,11 @@
 			]
 		},
 		"contracts/Voting.sol": {
-			"keccak256": "0x551cae9fe0d8648e32bba2d976a9e464e9860e343463ce1fdf428def9ae23729",
+			"keccak256": "0xbda1503fd29bde776bee26578104aec57db4d8e5d6434a1a6ccec35f1e014c8d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://305973153a5b0c1e0b4f939b021b56d95eddc859bb48c79af4c9ccd4e05494e1",
-				"dweb:/ipfs/QmNo7pgDRusC5aXELcLnneASjsvkATzALJtPdsYRyDV8dZ"
+				"bzz-raw://7b9c1230cfb0bb430017496228e4e7f9f374043983f5ddfd50db391b52d1f778",
+				"dweb:/ipfs/QmQmtnqWcN2V2CJG2YeBWe62b5maqtaPrN8zt9GU8cHiQ9"
 			]
 		}
 	},

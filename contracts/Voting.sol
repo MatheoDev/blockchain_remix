@@ -19,7 +19,6 @@ contract Voting is Ownable {
     struct Proposal {
         string description;
         uint voteCount;
-        uint id;
     }
 
     // status d'une session
@@ -41,6 +40,7 @@ contract Voting is Ownable {
     mapping(address => Voter) whiteList; // whitelist des votants
     Proposal[] proposals; // liste des proposition
     WorkflowStatus status; // current status
+    uint winningProposalId; // winner id
 
     /**
       * Permet de déterminer si on est sur un status precis pour la session
@@ -90,8 +90,18 @@ contract Voting is Ownable {
     /**
       * Permet de rendre public les votes
       */
-    function publishResult() external onlyOwner {
+    function talliedVote() external onlyOwner {
         require(status == WorkflowStatus.VotingSessionEnded, "It must be the end of the session");
+
+        // on détermine le gagnant 
+        Proposal memory winner;
+        for (uint i = 0 ; i < proposals.length ; i++) {
+            if (winner.voteCount < proposals[i].voteCount) { // le nb de vote est supp on replace le gagnant 
+                winner = proposals[i];
+                winningProposalId = i;
+            }
+        }
+
         status = WorkflowStatus.VotesTallied;
         emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, status);
     }
@@ -112,9 +122,8 @@ contract Voting is Ownable {
     function addProposal(string calldata _description) external isStatus(WorkflowStatus.ProposalsRegistrationStarted) {
         // on check si le user est enregistré à la liste d'électeur
         require(whiteList[msg.sender].isRegistered, "Your are not registered in list");
-        uint idProposal = proposals.length + 1;
-        proposals.push(Proposal(_description, 0, idProposal));
-        emit ProposalRegistered(idProposal);
+        proposals.push(Proposal(_description, 0));
+        emit ProposalRegistered(proposals.length);
     }
 
     /**
@@ -124,10 +133,10 @@ contract Voting is Ownable {
     function vote(uint _id) external isStatus(WorkflowStatus.VotingSessionStarted) {
         require(whiteList[msg.sender].isRegistered, "Your are not registered in list");
         require(!whiteList[msg.sender].hasVoted, "You have already voted");
-        require(_id != 0 && _id <= proposals.length, "This proposal doesn't exist");
+        require(proposals.length != 0 && _id <= proposals.length, "This proposal doesn't exist");
         whiteList[msg.sender].hasVoted = true;
         whiteList[msg.sender].votedProposalId = _id;
-        proposals[_id - 1].voteCount += 1;
+        proposals[_id].voteCount += 1;
         emit Voted(msg.sender, _id);
     }
 
@@ -161,13 +170,7 @@ contract Voting is Ownable {
       * Get le winner 
       */
     function getWinner() external view isStatus(WorkflowStatus.VotesTallied) returns (Proposal memory) {
-        Proposal memory winner;
-        for (uint i = 0 ; i < proposals.length ; i++) {
-            if (winner.voteCount < proposals[i].voteCount) {
-                winner = proposals[i];
-            }
-        }
-        return winner;
+        return proposals[winningProposalId];
     }
 
 }
