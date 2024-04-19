@@ -3,7 +3,7 @@ pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Voting is Ownable {
+contract VotingPlus is Ownable {
 
     constructor() Ownable(msg.sender) {
     }
@@ -31,19 +31,26 @@ contract Voting is Ownable {
         VotesTallied
     }
 
+    // ajout d'une structure de mapping pour conserver les clés et pouvoir les reset au besoin d'une nouvelle session de vote
+    struct WhiteListMap {
+        mapping(address => Voter) list;
+        address[] keys;
+    }
+
     // events
     event VoterRegistered(address voterAddress);
     event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus);
     event ProposalRegistered(uint proposalId);
     event Voted(address voter, uint proposalId);
 
-    mapping(address => Voter) whiteList; // whitelist des votants
+    WhiteListMap whiteList; // whitelist des votants
     Proposal[] proposals; // liste des proposition
     WorkflowStatus status; // current status
     uint winningProposalId; // winner id
+
     // check si l'address est enregistrer dans la liste
     modifier isAuthorize() {
-        require(whiteList[msg.sender].isRegistered, "Your are not registered in list");
+        require(whiteList.list[msg.sender].isRegistered, "Your are not registered in list");
         _;
     }
 
@@ -108,8 +115,9 @@ contract Voting is Ownable {
       */
     function addVoter(address _address) external onlyOwner {
         require(status == WorkflowStatus.RegisteringVoters, "It must be registering voter");
-        require(!whiteList[_address].isRegistered, "This address is already registered");
-        whiteList[_address] = Voter(true, false, 0);
+        require(!whiteList.list[_address].isRegistered, "This address is already registered");
+        whiteList.list[_address] = Voter(true, false, 0);
+        whiteList.keys.push(_address);
         emit VoterRegistered(_address);
     }
 
@@ -129,10 +137,10 @@ contract Voting is Ownable {
       */
     function vote(uint _id) external isAuthorize {
         require(status == WorkflowStatus.VotingSessionStarted, "It must be voting session");
-        require(!whiteList[msg.sender].hasVoted, "You have already voted");
+        require(!whiteList.list[msg.sender].hasVoted, "You have already voted");
         require(proposals.length != 0 && _id <= proposals.length, "This proposal doesn't exist");
-        whiteList[msg.sender].hasVoted = true;
-        whiteList[msg.sender].votedProposalId = _id;
+        whiteList.list[msg.sender].hasVoted = true;
+        whiteList.list[msg.sender].votedProposalId = _id;
         proposals[_id].voteCount += 1;
         emit Voted(msg.sender, _id);
     }
@@ -152,8 +160,8 @@ contract Voting is Ownable {
       * @return Voter
       */
     function getVoteTo(address _address) external view isAuthorize returns(Voter memory) {
-        require(whiteList[msg.sender].hasVoted, "This person hasn't voted");
-        return whiteList[_address];
+        require(whiteList.list[msg.sender].hasVoted, "This person hasn't voted");
+        return whiteList.list[_address];
     }
 
     /**
@@ -163,6 +171,20 @@ contract Voting is Ownable {
     function getWinner() external view returns (Proposal memory) {
         require(status == WorkflowStatus.VotesTallied, "It must be tallied session");
         return proposals[winningProposalId];
+    }
+
+    /**
+      * Reset session
+      */
+    function resetSession() external onlyOwner {
+        require(status == WorkflowStatus.VotesTallied, "It must be tallied session");
+        status = WorkflowStatus.RegisteringVoters; // register des votant
+        delete proposals; // delete les propositions
+        delete winningProposalId; // delete le gagnant 
+        for (uint i = 0; i < whiteList.keys.length; i++) {
+            delete whiteList.list[whiteList.keys[i]]; // delete les infos à l'adresse concerné
+        }
+        delete whiteList.keys;
     }
 
 }

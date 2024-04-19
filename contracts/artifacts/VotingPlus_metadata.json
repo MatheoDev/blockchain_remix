@@ -101,13 +101,13 @@
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "enum Voting.WorkflowStatus",
+						"internalType": "enum VotingPlus.WorkflowStatus",
 						"name": "previousStatus",
 						"type": "uint8"
 					},
 					{
 						"indexed": false,
-						"internalType": "enum Voting.WorkflowStatus",
+						"internalType": "enum VotingPlus.WorkflowStatus",
 						"name": "newStatus",
 						"type": "uint8"
 					}
@@ -172,7 +172,7 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct Voting.Proposal[]",
+						"internalType": "struct VotingPlus.Proposal[]",
 						"name": "",
 						"type": "tuple[]"
 					}
@@ -208,7 +208,7 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct Voting.Voter",
+						"internalType": "struct VotingPlus.Voter",
 						"name": "",
 						"type": "tuple"
 					}
@@ -233,7 +233,7 @@
 								"type": "uint256"
 							}
 						],
-						"internalType": "struct Voting.Proposal",
+						"internalType": "struct VotingPlus.Proposal",
 						"name": "",
 						"type": "tuple"
 					}
@@ -257,6 +257,13 @@
 			{
 				"inputs": [],
 				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "resetSession",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -393,6 +400,9 @@
 				"getWinner()": {
 					"notice": "Get le winner "
 				},
+				"resetSession()": {
+					"notice": "Reset session"
+				},
 				"startProposal()": {
 					"notice": "Permet de start les propositions"
 				},
@@ -411,7 +421,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Voting.sol": "Voting"
+			"contracts/VotingPlus.sol": "VotingPlus"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -441,12 +451,12 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
-		"contracts/Voting.sol": {
-			"keccak256": "0x4f6631f32043ee4481a0183f3fcc4d1b689ca081bac449b213d65649b956ed9e",
+		"contracts/VotingPlus.sol": {
+			"keccak256": "0xf94cb7ef2023c2fe351df0364aab1b3fcaa9bc79a1ad4500f7d38a11958a7fae",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://acbc2c87b7f03cfb849f5daf6ee39462a7f04b5ff93d00ffab0ae02a318a459f",
-				"dweb:/ipfs/QmbhgjSJg1dso4Yiys1unW9Gihq4eae5RHrn4ckMzVBgmy"
+				"bzz-raw://b801d0276ec958d03b2668bc65bf1ce07389ef4bfa20209479267fce08c96dd8",
+				"dweb:/ipfs/QmbbDoypKRXoV51atgMMitXNNaWBUcV6UP75q9XYsnv5qz"
 			]
 		}
 	},
