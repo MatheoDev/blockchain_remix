@@ -160,15 +160,6 @@ contract Voting is Ownable {
     }
 
     /**
-      * Reset de la session 
-      */
-    function resetSession() external onlyOwner {
-        status = WorkflowStatus.RegisteringVoters;
-        delete proposals;
-        // todo essayer de vider le mapping
-    }
-
-    /**
       * Get le winner 
       * @return Proposal
       */

@@ -263,13 +263,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "resetSession",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "startProposal",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -400,9 +393,6 @@
 				"getWinner()": {
 					"notice": "Get le winner "
 				},
-				"resetSession()": {
-					"notice": "Reset de la session "
-				},
 				"startProposal()": {
 					"notice": "Permet de start les propositions"
 				},
@@ -452,11 +442,11 @@
 			]
 		},
 		"contracts/Voting.sol": {
-			"keccak256": "0x24978f850b61315f0145eef9312004d79aaf6aa706e9a08392a61c7512ec31f1",
+			"keccak256": "0xf79e630567f230a1b57720e1dc279a0ceb9229d015f85a0fd216bd5cc766fb6c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ed6dfdb85edc4a53e20fda7c78921c33160790e6b42d2276624364350eb7a0c2",
-				"dweb:/ipfs/QmTMqmoQhgAHSk8tBTzn5r6cFzbTwQLxhNzfzu2CkrVAtr"
+				"bzz-raw://49baee142edbf3002fe6459677af10665863525498fdd0bc62d7ad8bbdbfa74d",
+				"dweb:/ipfs/Qmagh3fxmneRAkWATqKof9Acm8zGHVCSBJ8KnqwLS1Rzj9"
 			]
 		}
 	},
