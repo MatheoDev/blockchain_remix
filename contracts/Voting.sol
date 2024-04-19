@@ -142,6 +142,7 @@ contract Voting is Ownable {
 
     /**
       * Fonction permettant de regarder la liste des propositions 
+      * @return Proposal[]
       */
     function getProposals() external view returns(Proposal[] memory) {
         require(whiteList[msg.sender].isRegistered, "Your are not registered in list");
@@ -151,6 +152,7 @@ contract Voting is Ownable {
     /**
       * Fonction permettant de regarder le vote d'une personne 
       * @param _address address
+      * @return Voter
       */
     function getVoteTo(address _address) external view returns(Voter memory) {
         require(whiteList[msg.sender].isRegistered, "Your are not registered in list");
@@ -168,6 +170,7 @@ contract Voting is Ownable {
 
     /**
       * Get le winner 
+      * @return Proposal
       */
     function getWinner() external view isStatus(WorkflowStatus.VotesTallied) returns (Proposal memory) {
         return proposals[winningProposalId];

@@ -341,9 +341,22 @@
 						"_address": "address"
 					}
 				},
+				"getProposals()": {
+					"returns": {
+						"_0": "Proposal[]"
+					}
+				},
 				"getVoteTo(address)": {
 					"params": {
 						"_address": "address"
+					},
+					"returns": {
+						"_0": "Voter"
+					}
+				},
+				"getWinner()": {
+					"returns": {
+						"_0": "Proposal"
 					}
 				},
 				"owner()": {
@@ -439,11 +452,11 @@
 			]
 		},
 		"contracts/Voting.sol": {
-			"keccak256": "0xbda1503fd29bde776bee26578104aec57db4d8e5d6434a1a6ccec35f1e014c8d",
+			"keccak256": "0x24978f850b61315f0145eef9312004d79aaf6aa706e9a08392a61c7512ec31f1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7b9c1230cfb0bb430017496228e4e7f9f374043983f5ddfd50db391b52d1f778",
-				"dweb:/ipfs/QmQmtnqWcN2V2CJG2YeBWe62b5maqtaPrN8zt9GU8cHiQ9"
+				"bzz-raw://ed6dfdb85edc4a53e20fda7c78921c33160790e6b42d2276624364350eb7a0c2",
+				"dweb:/ipfs/QmTMqmoQhgAHSk8tBTzn5r6cFzbTwQLxhNzfzu2CkrVAtr"
 			]
 		}
 	},
