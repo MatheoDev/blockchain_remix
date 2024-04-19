@@ -184,7 +184,7 @@ contract VotingPlus is Ownable {
         for (uint i = 0; i < whiteList.keys.length; i++) {
             delete whiteList.list[whiteList.keys[i]]; // delete les infos à l'adresse concerné
         }
-        delete whiteList.keys;
+        delete whiteList.keys; // on delete les keys liés à notre mapping une fois qu'on a delete les Voter
     }
 
 }
